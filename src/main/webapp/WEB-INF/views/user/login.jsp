@@ -3,9 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set value="${pageContext.request.contextPath}" var="rootPath" />
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
-
+>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,20 +14,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>안녕하세요</h1>
+	<h1>로그인 페이지</h1>
+	<form:form action="${rootPath}/user/login">
+		<c:if test="${error =='LOGIN_NEED'}">
+			<div>* 로그인이 필요한 페이지에 접속하였습니다</div>
+		</c:if>
 
+		<div>
+			<input name="username" placeholder="USERNAME">
+		</div>
+		<div>
+			<input name="password" type="password">
+		</div>
+		<div>
+			<button>로그인</button>
+		</div>
 
-	<h3>
-		<sec:authentication property="principal.username" />
-	</h3>
-
-
-
-
-	<div>
-		<a href="${rootPath}/todo/todoList">Todo리스트</a>
-	</div>
-
-
+		<div>
+			<a href="${rootPath}/user/join">회원가입</a>
+		</div>
+	</form:form>
 </body>
 </html>

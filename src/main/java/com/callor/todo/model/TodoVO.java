@@ -15,14 +15,14 @@ import lombok.ToString;
 @ToString
 public class TodoVO {
 	
-	private long t_seq;
-	private String t_username;
-	private String t_sdate;
-	private String t_stime;
-	private String t_context;
+	private long seq;
+	private String id;
+	private String insert_date;
+	private String insert_time;
+	private String context;
 	
-	private String t_edate;
-	private String t_etime;
+	private String comp_date;
+	private String comp_time;
 	
 	private Boolean complete;
 	

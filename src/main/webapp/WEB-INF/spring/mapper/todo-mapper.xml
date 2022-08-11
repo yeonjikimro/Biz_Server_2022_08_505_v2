@@ -9,13 +9,9 @@
 		SELECT * FROM tbl_todos
 		ORDER BY insert_date ASC, insert_time ASC
 	</select>
-	<select id="findByUsername">
-		SELECT * FROM tbl_todoList
-		WHERE username=#{username}
-	</select>
 	<select id="findById" resultType="TodoVO">
 		SELECT * FROM tbl_todos
-		WHERE t_seq=#{t_seq}
+		WHERE seq=#{seq}
 	</select>
 	<select id="selectTodoAll" resultType="TodoVO">
 		SELECT * FROM tbl_todos
@@ -24,35 +20,44 @@
 	</select>
 	<insert id="insert" parameterType="TodoVO">
 		INSERT INTO tbl_todos(
-		t_username,
-		t_sdate,
-		t_stime,
-		t_context
+		seq,
+		id,
+		insert_date,
+		insert_time,
+		context,
+		comp_date,
+		comp_time,
+		complete
 		) VALUES (
-		#{t_username},
-		#{t_sdate},
-		#{t_stime},
-		#{t_context},
+		#{seq},
+		#{id},
+		#{insert_date},
+		#{insert_time},
+		#{context},
+		#{comp_date},
+		#{comp_time},
+		#{complete}
 		)
 	</insert>
 	<update id="update">
 		UPDATE tbl_todos SET
-			t_context = #{t_context},
-			t_edate = #{t_edate},
-			t_etime = #{t_etime},
-		WHERE t_seq = #{t_seq}
+			context = #{context},
+			complete = #{complete},
+			comp_date = #{comp_date},
+			comp_time = #{comp_time}
+		WHERE seq = #{seq}
 	</update>
 	<delete id="delete"></delete>
 
 	<select id="create_todo_table">
 		CREATE TABLE IF NOT EXISTS tbl_todos (
-		t_seq BIGINT AUTO_INCREMENT PRIMARY KEY,
-		t_username VARCHAR(20) NOT NULL,
-		t_sdate VARCHAR(10) NOT NULL,
-		t_stime VARCHAR(10) NOT NULL,
-		t_context VARCHAR(10) NOT NULL,
-		t_edate VARCHAR(10),
-		t_etime VARCHAR(10),
+		seq BIGINT AUTO_INCREMENT PRIMARY KEY,
+		id VARCHAR(30),
+		insert_date VARCHAR(30),
+		insert_time VARCHAR(30),
+		context VARCHAR(30) NOT NULL,
+		comp_date VARCHAR(30),
+		comp_time VARCHAR(30),
 		complete tinyint(1)
 
 		)

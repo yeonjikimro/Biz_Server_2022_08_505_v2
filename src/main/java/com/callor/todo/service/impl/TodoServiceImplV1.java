@@ -1,28 +1,27 @@
 package com.callor.todo.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import com.callor.todo.model.TodoVO;
 import com.callor.todo.persistance.TodoDao;
 import com.callor.todo.service.TodoService;
 
-@Service
+@Service("todoServiceV1")
 public class TodoServiceImplV1 implements TodoService{
 
-	
 	@Autowired
 	private TodoDao todoDao;
 	
 	
-	@Override
-	public List<TodoVO> findByUsername(String username) {
+	@Bean
+	public void create_todo_table() {
 		// TODO Auto-generated method stub
-		return todoDao.findByUsername(username);
+		todoDao.create_todo_table();
+		
 	}
 
 	@Override
@@ -32,35 +31,36 @@ public class TodoServiceImplV1 implements TodoService{
 	}
 
 	@Override
-	public TodoVO findById(Long id) {
-		// TODO Auto-generated method stub
-		return todoDao.findById(id);
+	public TodoVO findById(Long seq) {
+		
+		return todoDao.findById(seq);
 	}
 
 	@Override
 	public int insert(TodoVO vo) {
 		// TODO Auto-generated method stub
 		
-		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:SS");
-		
-		vo.setT_sdate(dateFormat.format(date));
-		vo.setT_stime(timeFormat.format(date));
+
 		
 		return todoDao.insert(vo);
 	}
 
 	@Override
 	public int update(TodoVO vo) {
-		// TODO Auto-generated method stub
+		
 		return todoDao.update(vo);
 	}
 
 	@Override
-	public int delete(Long id) {
+	public int delete(Long seq) {
 		// TODO Auto-generated method stub
-		return 0;
+		return todoDao.delete(seq);
+	}
+
+	@Override
+	public List<TodoVO> selectTodoAll(String username) {
+		// TODO Auto-generated method stub
+		return todoDao.selectTodoAll(username);
 	}
 
 }

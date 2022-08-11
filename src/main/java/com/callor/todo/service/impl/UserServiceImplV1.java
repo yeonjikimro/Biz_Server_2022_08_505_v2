@@ -3,7 +3,9 @@ package com.callor.todo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.callor.todo.model.AuthorityVO;
@@ -17,22 +19,18 @@ public class UserServiceImplV1 implements UserService{
 	@Autowired
 	private UserDao userDao;
 	
-	// 자동실행하기(꼼수)
+
 	@Bean
-	public void create_table() {
-		userDao.create_user_table();
-		userDao.create_auth_table();
-	}
-	
-	@Override
 	public void create_user_table() {
+		userDao.create_user_table();
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	@Bean
 	public void create_auth_table() {
 		// TODO Auto-generated method stub
+		userDao.create_auth_table();
 		
 	}
 
@@ -51,9 +49,11 @@ public class UserServiceImplV1 implements UserService{
 		return null;
 	}
 
+	
 	@Override
 	public int insert(UserVO vo) {
-		return 0;
+		
+		return userDao.insert(vo);
 		
 	}
 

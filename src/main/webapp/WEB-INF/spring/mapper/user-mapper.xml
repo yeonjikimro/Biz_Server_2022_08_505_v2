@@ -58,10 +58,10 @@
 		CREATE TABLE IF NOT EXISTS tbl_users (
 		username VARCHAR(20) PRIMARY KEY,
 		password VARCHAR(255) NOT NULL,
-		enabled BOOLEAN DEFAULT FALSE,
-		accountNonExpired BOOLEAN DEFAULT TRUE,
-		accountNonLocked BOOLEAN DEFAULT TRUE,
-		aredentialsNonExpired BOOLEAN DEFAULT TRUE,
+		isEnabled BOOLEAN DEFAULT FALSE,
+		isAccountNonExpired BOOLEAN DEFAULT TRUE,
+		isAccountNonLocked BOOLEAN DEFAULT TRUE,
+		isCredentialsNonExpired BOOLEAN DEFAULT TRUE,
 
 		email VARCHAR(30),
 		realname VARCHAR(20),
