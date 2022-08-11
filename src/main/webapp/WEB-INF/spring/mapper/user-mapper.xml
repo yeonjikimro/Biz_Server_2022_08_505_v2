@@ -2,83 +2,67 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.callor.todo.persistance.UserDao">
-
-	<select id="selectAll" resultType="UserVO">
-		SELECT * FROM tbl_users
-	</select>
-
-	<select id="findById" resultType="UserVO">
-		SELECT * FROM tbl_users
-		WHERE
-		username=#{username}
-	</select>
-	<select id="select_auths" resultType="AuthorityVO">
-		SELECT * FROM
-		tbl_authorities WHERE username = #{username}
-	</select>
-
-
-	<insert id="insert" parameterType="UserVO">
-		INSERT INTO tbl_users(
-		username,
-		password,
-		isEnabled,
-		email,
-		realname,
-		address,
-		nickname,
-		phone
+  
+ <mapper namespace="com.callor.todo.persistance.UserDao">
+ 
+ 	<select id="selectAll" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 		
+ 	</select>
+ 	<select id="findById" resultType="UserVO">
+ 		SELECT * FROM tbl_users WHERE username = #{username}
+ 	</select>
+ 	
+ 	
+ 	<insert id="role_insert" parameterType="AuthorityVO">
+ 		INSERT INTO tbl_authorities (username, authority)
+ 		VALUES
+ 		<foreach collection="list" separator=", " item="vo">
+ 			( #{vo.username}, #{vo.authority} )
+ 		</foreach>
+ 	</insert>
+ 	<select id="select_auths" resultType="AuthorityVO">
+ 		SELECT * FROM tbl_authorities WHERE username = #{username}
+ 	</select>
+ 	
+ 	<insert id="insert">
+ 		INSERT INTO tbl_users(
+			username,
+			password,
+			enabled,
+			realname,
+			nickname
+		) VALUES(
+			#{username},
+			#{password},
+			#{enabled},
+			#{realname},
+			#{nickname}
 		)
-		VALUES(
-		#{username},
-		#{password},
-		#{isEnabled},
-		#{email},
-		#{realname},
-		#{address},
-		#{nickname},
-		#{phone}
+ 	</insert>
+ 	<update id="update"></update>
+ 	<delete id="delete"></delete>
+ 	
+ 	<select id="create_user_table">
+ 		CREATE TABLE IF NOT EXISTS tbl_users (
+			username VARCHAR(20) PRIMARY KEY,
+			password VARCHAR(255) NOT NULL,
+			enabled BOOLEAN DEFAULT FALSE,
+			accountNonExpired BOOLEAN  DEFAULT FALSE,
+			accountNonLocked BOOLEAN  DEFAULT FALSE,
+			credentialsNonExpired BOOLEAN  DEFAULT FALSE,
+			realname VARCHAR(20),
+			nickname VARCHAR(20)
 		)
-	</insert>
-
-	<insert id="role_insert">
-		INSERT INTO tbl_authorities(username, authority
-		) VALUES
-		<foreach collection="list" item="vo" separator=", ">
-			(#{vo.username}, #{vo.authority})
-		</foreach>
-	</insert>
-
-	<update id="update"></update>
-	<delete id="delete"></delete>
-
-	<select id="create_user_table">
-		CREATE TABLE IF NOT EXISTS tbl_users (
-		username VARCHAR(20) PRIMARY KEY,
-		password VARCHAR(255) NOT NULL,
-		isEnabled BOOLEAN DEFAULT FALSE,
-		isAccountNonExpired BOOLEAN DEFAULT TRUE,
-		isAccountNonLocked BOOLEAN DEFAULT TRUE,
-		isCredentialsNonExpired BOOLEAN DEFAULT TRUE,
-
-		email VARCHAR(30),
-		realname VARCHAR(20),
-		address VARCHAR(100),
-		nickname VARCHAR(20),
-		phone VARCHAR(15)
+ 	</select>
+ 	
+ 	<select id="create_auth_table">
+	 	CREATE TABLE IF NOT EXISTS tbl_authorities (
+			seq BIGINT AUTO_INCREMENT PRIMARY KEY,
+		    username VARCHAR(20),
+		    authority VARCHAR(20)
 		)
-
-
-	</select>
-
-	<select id="create_auth_table">
-		CREATE TABLE IF NOT EXISTS tbl_authorities (
-		seq BIGINT AUTO_INCREMENT PRIMARY KEY,
-		username VARCHAR(20),
-		authority VARCHAR(20)
-		)
-	</select>
-
-</mapper> 
+ 	</select>
+ 	
+ 
+ </mapper> 
