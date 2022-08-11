@@ -53,6 +53,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 	<sec:authorize access="isAuthenticated()">
 		<h1 class="w3-text-blue">[ <sec:authentication property="principal.username" /> ] 님의 TODO LIST</h1>
 		<c:forEach items="${TODOS}" var="TODO">
+			<div class="check_list">
+				<input type="checkbox" name="이름">
+			
+			</div>
+		
+		
+		
 			<div 
 				<c:if test='${empty TODO.t_edate}'> data-seq="${TODO.t_seq}" </c:if>
 				title="시작 : ${TODO.t_sdate}, ${TODO.t_stime}" 

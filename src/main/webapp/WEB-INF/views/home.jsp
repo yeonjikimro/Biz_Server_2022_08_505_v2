@@ -105,8 +105,13 @@
 <nav>
 	<ul>
 		<li><a href="${rootPath}/">HOME</a></li>
-		<li><a href="${rootPath}/todo">나의 TODO</a></li>
-		<li><a href="${rootPath}/about">About</a></li>
+		<li><a href="${rootPath}/medi/test">나에게 맞는 알약 알아보기</a></li>
+		<li><a href="${rootPath}/medi/search">알약 추천</a></li>
+		<li><a href="${rootPath}/word/home">게시판</a></li>
+			<li>
+				<span><a href="${rootPath}/word/home">문의게시판</a></span>
+				<span><a href="${rootPath}/word/tip">정보들</a></span>
+			</li>
 		
 		<sec:authorize access="isAnonymous()">
 			<li><a href="${rootPath}/user/login">로그인</a></li>
@@ -127,12 +132,6 @@
 		<c:when test="${LAYOUT == 'LOGIN' }">
 			<%@ include file="/WEB-INF/views/user/login.jsp" %>
 		</c:when>
-		<c:when test="${LAYOUT == 'TODO_LIST' }">
-			<%@ include file="/WEB-INF/views/todo/list.jsp" %>
-		</c:when>
-
-		
-		
 		<c:otherwise>
 			<article class="welcome">
 				<h1>TODO List 애플리케이션 2022</h1>
